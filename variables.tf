@@ -29,3 +29,8 @@ variable "entrypoint_uri_path" {
 variable "mc_api_url" {
   default = "https://mc-api.europe-west1.gcp.commercetools.com"
 }
+
+variable "local_package" {
+  type = string
+  default = null
+}
