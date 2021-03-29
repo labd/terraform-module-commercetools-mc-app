@@ -24,6 +24,7 @@ CREDENTIALS=(`aws sts assume-role \
 if [ $? -eq 0 ]
 then
   unset AWS_PROFILE
+  unset AWS_SECURITY_TOKEN
   export AWS_DEFAULT_REGION=${data.aws_region.current.name}
   export AWS_ACCESS_KEY_ID="$${CREDENTIALS[0]}"
   export AWS_SECRET_ACCESS_KEY="$${CREDENTIALS[1]}"
