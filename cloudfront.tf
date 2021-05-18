@@ -47,6 +47,7 @@ resource "aws_cloudfront_distribution" "mc_app" {
       headers = [
         "Access-Control-Request-Headers",
         "Access-Control-Request-Method",
+        "X-MC-API-Cloud-Identifier",
         "Origin",
       ]
 
