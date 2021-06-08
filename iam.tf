@@ -36,3 +36,26 @@ data "aws_iam_policy_document" "lambda_s3_policy" {
     ]
   }
 }
+
+data "aws_iam_policy_document" "bucket_policy" {
+
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      "arn:aws:s3:::${local.bucket_name}",
+      "arn:aws:s3:::${local.bucket_name}/*",
+    ]
+
+    principals {
+      type = "AWS"
+
+      identifiers = [
+        aws_cloudfront_origin_access_identity.cloudfront_identity.iam_arn
+      ]
+    }
+  }
+}
