@@ -46,8 +46,8 @@ data "aws_iam_policy_document" "bucket_policy" {
     ]
 
     resources = [
-      "arn:aws:s3:::${local.bucket_name}",
-      "arn:aws:s3:::${local.bucket_name}/*",
+      "arn:aws:s3:::${var.name}",
+      "arn:aws:s3:::${var.name}/*",
     ]
 
     principals {

@@ -31,6 +31,6 @@ variable "mc_api_url" {
 }
 
 variable "local_package" {
-  type = string
+  type    = string
   default = null
 }
