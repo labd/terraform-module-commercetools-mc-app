@@ -68,7 +68,7 @@ resource "aws_cloudfront_distribution" "mc_app" {
   }
 
   origin {
-    domain_name = aws_s3_bucket.mc_app.website_endpoint
+    domain_name = aws_s3_bucket.mc_app.bucket_domain_name
     origin_id   = "s3-bucket"
 
     s3_origin_config {
