@@ -41,7 +41,7 @@ cp ${var.local_package} .tmp-${local.package_name}
 
 cd .tmp-${local.package_name}/
 unzip ${local.package_name} && rm ${var.package.key}
-aws s3 sync --acl public-read . s3://${aws_s3_bucket.mc_app.bucket}/assets/${var.version_name}/
+aws s3 sync . s3://${aws_s3_bucket.mc_app.bucket}/assets/${var.version_name}/
 cd .. && rm -rf .tmp-${var.package.key}
 EOF
   }
