@@ -1,8 +1,13 @@
+resource "aws_cloudfront_origin_access_identity" "cloudfront_identity" {
+  comment = "MC APP CloudFront"
+}
+
 resource "aws_cloudfront_distribution" "mc_app" {
   enabled = true
 
   default_root_object = "index.html"
   price_class         = "PriceClass_200"
+  wait_for_deployment = false
 
   ordered_cache_behavior {
     path_pattern     = "/assets/*"
@@ -65,6 +70,10 @@ resource "aws_cloudfront_distribution" "mc_app" {
   origin {
     domain_name = aws_s3_bucket.mc_app.website_endpoint
     origin_id   = "s3-bucket"
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.cloudfront_identity.cloudfront_access_identity_path
+    }
 
     custom_origin_config {
       http_port              = 80
