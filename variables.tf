@@ -34,3 +34,9 @@ variable "local_package" {
   type    = string
   default = null
 }
+
+variable "upload_role_arns" {
+  type = list
+  default = []
+}
+
