@@ -58,4 +58,26 @@ data "aws_iam_policy_document" "bucket_policy" {
       ]
     }
   }
+
+  dynamic "statement" {
+    for_each = toset(var.upload_role_arns)
+
+    content {
+      actions = [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:ListBucket",
+      ]
+
+      resources = [
+        "arn:aws:s3:::${var.name}",
+        "arn:aws:s3:::${var.name}/*",
+      ]
+
+      principals {
+        type        = "AWS"
+        identifiers = [each.key]
+      }
+    }
+  }
 }
