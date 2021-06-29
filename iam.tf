@@ -1,31 +1,5 @@
 data "aws_iam_policy_document" "lambda_s3_policy" {
 
-  # Logging
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "logs:CreateLogGroup",
-    ]
-
-    resources = [
-      "arn:aws:logs:*:*:*",
-    ]
-  }
-
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-    ]
-
-    resources = [
-      "arn:aws:logs:*:*:*",
-    ]
-  }
-
   statement {
     sid       = "AllowS3PutInvoices"
     effect    = "Allow"
