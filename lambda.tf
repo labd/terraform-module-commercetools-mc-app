@@ -35,7 +35,7 @@ module "lambda_at_edge" {
   attach_cloudwatch_logs_policy = true
 
   function_name = var.name
-  description   = "My awesome lambda@edge function"
+  description   = var.name
   handler       = "index.handler"
   runtime       = "nodejs12.x"
 
