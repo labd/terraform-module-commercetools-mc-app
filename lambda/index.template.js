@@ -158,9 +158,6 @@ exports.handler = async (event, context) => {
     const { response } = event.Records[0].cf;
     const { headers } = response;
 
-    headers["content-type"] = [
-      { key: "Content-Type", value: "text/html;charset=UTF-8" },
-    ];
     headers["strict-transport-security"] = [
       { key: "Strict-Transport-Security", value: "max-age=31536000" },
     ];
