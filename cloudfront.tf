@@ -1,5 +1,5 @@
 resource "aws_cloudfront_origin_access_identity" "cloudfront_identity" {
-  comment = "MC APP CloudFront"
+  comment = var.name
 }
 
 resource "aws_cloudfront_distribution" "mc_app" {

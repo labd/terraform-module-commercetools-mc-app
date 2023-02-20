@@ -32,8 +32,10 @@ module "lambda_at_edge" {
   policy_json        = data.aws_iam_policy_document.lambda_s3_policy.json
   attach_policy_json = true
 
+  attach_cloudwatch_logs_policy = true
+
   function_name = var.name
-  description   = "My awesome lambda@edge function"
+  description   = var.name
   handler       = "index.handler"
   runtime       = "nodejs12.x"
 
