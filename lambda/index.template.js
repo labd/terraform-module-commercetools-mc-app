@@ -3,8 +3,8 @@ const aws = require("aws-sdk");
 const s3 = new aws.S3({ region: "${bucket_region}" });
 
 const VARS = {
-  assetsPath: "assets/${version}/"
-}
+  assetsPath: "assets/${version}/",
+};
 
 const DataLayerScript = `window.dataLayer=[{"gtm.start":(new Date).getTime(),event:"gtm.js"}];`;
 const LoadingScreenScript = `
@@ -75,7 +75,7 @@ const LoadingScreenCSS = `
     transform-origin: 20px 20px 0;
     animation: loading-spinner-animation .5s infinite linear
   }
-  </style>`
+  </style>`;
 
 const ApplicationConfig = {
   externalApiUrl: "${external_api_url}",
@@ -100,8 +100,9 @@ exports.handler = async (event, context) => {
     const { request } = event.Records[0].cf;
 
     // Note that we use terraform templates, so keep it simple (no escaping)
-    ApplicationConfig.cdnUrl = "https://" + config.distributionDomainName + "/" + VARS.assetsPath
-    ApplicationConfig.frontendHost = config.distributionDomainName
+    ApplicationConfig.cdnUrl =
+      "https://" + config.distributionDomainName + "/" + VARS.assetsPath;
+    ApplicationConfig.frontendHost = config.distributionDomainName;
 
     const key = VARS.assetsPath + "index.html.template";
     console.log("Retrieving template file from s3 bucket:", key);
@@ -125,7 +126,7 @@ exports.handler = async (event, context) => {
 
       content = content
         .split("__MC_API_URL__")
-        .join(ApplicationConfig.mcApiUrl)
+        .join(ApplicationConfig.mcApiUrl);
 
       content = content
         .split("__LOADING_SCREEN_JS__")
@@ -142,6 +143,9 @@ exports.handler = async (event, context) => {
         status: "200",
         statusDescription: "OK",
         body: content,
+        headers: {
+          "content-type": [{ value: "text/html;charset=UTF-8" }],
+        },
       };
     } catch (err) {
       console.error(err);
@@ -150,10 +154,8 @@ exports.handler = async (event, context) => {
         statusDescription: "Not Found",
       };
     }
-    return request;
   } else if (config.eventType == "origin-response") {
-    const { request, response } = event.Records[0].cf;
-    const { uri } = request;
+    const { response } = event.Records[0].cf;
     const { headers } = response;
 
     headers["strict-transport-security"] = [
